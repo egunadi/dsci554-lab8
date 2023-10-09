@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>DSCI 554 Lab Area chart</title>
+
+  <link href="./node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css">
+
+  <link href="node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="./github-dark-dimmed.min.css">
+  <script src="./highlight.min.js"></script>
+
+  <script src="./node_modules/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
+  <link rel="stylesheet" href="./node_modules/highlightjs-copy/dist/highlightjs-copy.min.css" />
+
+  <script>
+    hljs.highlightAll();
+    hljs.addPlugin(new CopyButtonPlugin());
+  </script>
+
+  <script src="./node_modules/d3/dist/d3.min.js"></script>
+
+</head>
+
+<body>
+  <h1>🧪 Area chart</h1>
+
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.html">Labs index</a></li>
+      <li class="breadcrumb-item active" aria-current="page">🧪 Area chart</li>
+    </ol>
+  </nav>
+
+  <h2>Area generator</h2>
+
+  <p>From the <a target="_blank" href="https://d3js.org/d3-shape/area#areas">D3 Area API</a>:</p>
+
+  <p><a href="https://observablehq.com/@d3/area-chart/2?intent=fork" target="_blank" rel="external">Examples</a> · The area generator produces an area defined by a <em>topline</em> and a <em>baseline</em> as in an area chart. Typically, the two lines share the same <a href="#area_x"><em>x</em>-values</a> (<a href="#area_x0">x0</a> = <a href="#area_x1">x1</a>), differing only in <em>y</em>-value (<a href="#area_y0">y0</a> and <a href="#area_y1">y1</a>); most commonly, y0 is defined as a constant representing zero (the y scale’s output for zero). The <em>topline</em> is defined by x1 and y1 and is rendered first; the <em>baseline</em> is defined by x0 and y0 and is rendered second with the points in reverse order. With a <a href="./curve#curveLinear">curveLinear</a> <a href="#area_curve">curve</a>, this produces a clockwise polygon. See also <a href="./radial-area">radial areas</a>.</p>
+
+  <svg id="area-test" width="200" height="200"></svg>
+
+  <pre><code class="js" data-trim data-noescape>var region = [  //two consecutive points in an area chart
+ {x: 10, y: 100},
+ {x: 100, y: 40},
+];
+
+var svg = d3.select('#area-test');
+var margin = { top: 10, right: 10, bottom: 10, left: 10 },
+ width = +svg.attr('width') - margin.left - margin.right,
+ height = +svg.attr('height') - margin.top - margin.bottom,
+ g = svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+var x = d3.scaleLinear()
+ .domain([0, 100])
+ .range([0, width]);
+
+var y = d3.scaleLinear()
+ .domain([0, 100])
+ .range([height, 0]);
+
+var area = d3.area()
+ .x(d => x(d.x))
+ .y1(d => y(d.y))
+ .y0(y(0));
+
+console.log(area(region));
+
+g.append('path')
+ .attr('d', area(region))
+ .attr('fill', "red")
+ .attr('stroke', "black");</code></pre>
+
+  <script>
+    var region = [  //two consecutive points in an area chart
+      { x: 10, y: 100 },
+      { x: 100, y: 40 },
+    ];
+
+    var svg = d3.select('#area-test');
+    var margin = { top: 10, right: 10, bottom: 10, left: 10 },
+      width = +svg.attr('width') - margin.left - margin.right,
+      height = +svg.attr('height') - margin.top - margin.bottom,
+      g = svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+    var x = d3.scaleLinear()
+      .domain([0, 100])
+      .range([0, width]);
+
+    var y = d3.scaleLinear()
+      .domain([0, 100])
+      .range([height, 0]);
+
+    var area = d3.area()
+      .x(d => x(d.x))
+      .y1(d => y(d.y))
+      .y0(y(0));
+
+    console.log(area(region));
+
+    g.append('path')
+      .attr('d', area(region))
+      .attr('fill', "red")
+      .attr('stroke', "black");
+  </script>
+
+  <h2>Area chart</h2>
+
+  <p>Read the <a target="_blank" href="https://github.com/d3/d3/blob/master/API.md#areas">D3 Area API</a>. Code
+    adapted from <a target="_blank" href="https://bl.ocks.org/mbostock/3883195">Mike Bostock’s Block 3883195</a></p>
+
+  <svg id="area-chart" style="display: block" width="960" height="500"></svg>
+
+  <script>
+    var parseTime = d3.timeParse('%d-%b-%y');
+
+    d3.tsv('data.tsv', function (d) {
+      d.date = parseTime(d.date);
+      d.close = +d.close;
+      return d;
+    }).then(data => {
+      var svg = d3.select('#area-chart');
+      var margin = { top: 40, right: 20, bottom: 30, left: 50 },
+        width = +svg.attr('width') - margin.left - margin.right
+      height = +svg.attr('height') - margin.top - margin.bottom,
+        g = svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+      var x = d3.scaleTime()
+        .rangeRound([0, width]);
+
+      var y = d3.scaleLinear()
+        .rangeRound([height, 0]);
+
+      var area = d3.area()
+        .x(d => x(d.date))
+        .y1(d => y(d.close));
+
+      x.domain(d3.extent(data, d => d.date));
+
+      y.domain(d3.extent(data, d => d.close));
+
+      area.y0(y(d3.min(data, d => d.close)));
+
+      //to plot from 0
+      // y.domain([0, d3.max(data, d => d.close)]);
+      // area.y0(y(0));
+
+      g.append('path')
+        .datum(data)
+        .attr('fill', 'steelblue')
+        .attr('d', area);
+
+      g.append('g')
+        .attr('transform', 'translate(0,' + height + ')')
+        .call(d3.axisBottom(x));
+
+      g.append('g')
+        .call(d3.axisLeft(y))
+        .append('text')
+        .attr('fill', '#000')
+        .attr('transform', 'rotate(-90)')
+        .attr('y', 6)
+        .attr('dy', '0.71em')
+        .attr('text-anchor', 'end')
+        .text('Price ($)');
+    });
+  </script>
+
+  <pre><code class="js" data-trim data-noescape>var parseTime = d3.timeParse('%d-%b-%y');
+
+d3.tsv('data.tsv', function (d) {
+  d.date = parseTime(d.date);
+  d.close = +d.close;
+  return d;
+}).then(data => {
+  var svg = d3.select('#area-chart');
+  var margin = { top: 40, right: 20, bottom: 30, left: 50 },
+    width = +svg.attr('width') - margin.left - margin.right
+  height = +svg.attr('height') - margin.top - margin.bottom,
+    g = svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+  var x = d3.scaleTime()
+    .rangeRound([0, width]);
+
+  var y = d3.scaleLinear()
+    .rangeRound([height, 0]);
+
+  var area = d3.area()
+    .x(d => x(d.date))
+    .y1(d => y(d.close));
+
+  x.domain(d3.extent(data, d => d.date));
+
+  y.domain(d3.extent(data, d => d.close));
+
+  area.y0(y(d3.min(data, d => d.close)));
+
+  //to plot from 0
+  // y.domain([0, d3.max(data, d => d.close)]);
+  // area.y0(y(0));
+
+  g.append('path')
+    .datum(data)
+    .attr('fill', 'steelblue')
+    .attr('d', area);
+
+  g.append('g')
+    .attr('transform', 'translate(0,' + height + ')')
+    .call(d3.axisBottom(x));
+
+  g.append('g')
+    .call(d3.axisLeft(y))
+    .append('text')
+    .attr('fill', '#000')
+    .attr('transform', 'rotate(-90)')
+    .attr('y', 6)
+    .attr('dy', '0.71em')
+    .attr('text-anchor', 'end')
+    .text('Price ($)');
+});</code></pre>
+
+  <div class="mt-3 text-end"><a href="#"><i class="bi bi-arrow-up"></i> top</a></div>
+
+</body>
+
+</html>

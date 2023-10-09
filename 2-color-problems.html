@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>DSCI 554 Lab Color Problems</title>
+
+  <link href="./node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css">
+
+  <link href="node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="./github-dark-dimmed.min.css">
+  <script src="./highlight.min.js"></script>
+
+  <script src="./node_modules/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
+  <link rel="stylesheet" href="./node_modules/highlightjs-copy/dist/highlightjs-copy.min.css" />
+
+  <script>
+    hljs.highlightAll();
+    hljs.addPlugin(new CopyButtonPlugin());
+  </script>
+</head>
+
+<body>
+  <h1>🧪 Evaluate and correct color problems</h1>
+
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.html">Labs index</a></li>
+      <li class="breadcrumb-item active" aria-current="page">🧪 Assessing and correcting color problems</li>
+    </ol>
+  </nav>
+
+  <h2>Vision deficiencies</h2>
+
+  <p>We can use Dev Tools Rendering to Emulate vision deficiencies.<br>Open <kbd>⠇ menu > More tools > Rendering</kbd>
+    and use the <kbd>Emulate vision deficiencies</kbd> drop-down to identify the problems with the following graphic:
+  </p>
+
+  <img class="mb-3" height="400px" src="spain-elections.png">
+
+  <h2>Color accessibility</h2>
+
+  <div class="alert alert-info">💡 <b>Color Contrast Levels</b>
+    <p class="mt-2">
+      <i>Level A</i>: color contrast of 3:1. Basic requirement for some users with disabilities to be able to access and
+      use web content<br>
+      <i>Level AA</i>: color contrast of 4.5:1. Overall accessibility and removal of significant barriers to accessing
+      content<br>
+      <i>Level AAA</i>: color contrast of 7:1. Provides improvements and enhancements to web accessibility for some
+      users with disabilities<br>
+    </p>
+  </div>
+
+  <style>
+    .box {
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
+
+  <h2>Examples</h2>
+
+  <p>We can use Dev Tools as shown in <a href="https://www.youtube.com/watch?v=sEDnmNtEaqQ">Accessible Color Standards -
+      Designing in the Browser</a>, or the <a href="https://webaim.org/resources/contrastchecker/">WebAIM contrast
+      checker</a> to check for the text and background contrast level, and to set colors to match specific contrast
+    level.
+  </p>
+
+  <div class="box mb-2" style="background-color: black;">
+    <span style="color: #0000ff">adjust text color so the color contrast with the background complies with AA level</>
+    </span>
+  </div>
+
+  <div class="box" style="background-color: black;">
+    <div style="color: #ff0000">adjust text color so the color contrast with the background complies with AAA level</>
+    </div>
+  </div>
+
+  <div class="mt-3 text-end"><a href="#"><i class="bi bi-arrow-up"></i> top</a></div>
+  
+</body>
+
+</html>

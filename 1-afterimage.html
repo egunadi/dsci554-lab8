@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>DSCI 554 Lab negative afterimages</title>
+
+  <link href="./node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css">
+
+  <link href="node_modules/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="./github-dark-dimmed.min.css">
+  <script src="./highlight.min.js"></script>
+
+  <script src="./node_modules/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
+  <link rel="stylesheet" href="./node_modules/highlightjs-copy/dist/highlightjs-copy.min.css" />
+
+  <script>
+    hljs.highlightAll();
+    hljs.addPlugin(new CopyButtonPlugin());
+  </script>
+</head>
+
+<body>
+
+  <h1>🧪 Negative afterimage</h1>
+
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.html">Labs index</a></li>
+      <li class="breadcrumb-item active" aria-current="page">🧪 Negative afterimages</li>
+    </ol>
+  </nav>
+
+  <h2>Resolving afterimages</h2>
+
+  <p>You can use <code><a href="afterimage-experiment.html" target="_blank">afterimage-experiment.html</a></code> to
+    experience negative afterimages. The <code>afterimage-experiment.html</code> is implemented with D3
+    transitions. A <i>negative afterimage</i> appears when fixating, because fixating lessens the response of the
+    associated photoreceptors. In practice this is prevented by <i>micro-saccades</i>. <mark>According to the
+      trichromatic
+      theory, depleted colors result in the perception of their complementary colors.</mark></p>
+
+  <p>For example, if you stare at a red square for a while, and then look at a white sheet of paper, you will see a
+    green
+    square. This is because the red receptors are depleted, and the green receptors are not. The green receptors are
+    then
+    over-stimulated, creating the perception of green.</p>
+
+  <img class="py-3" src="AdditiveColor.svg" width="400px" />
+
+  <h3>Examples</h3>
+
+  <div>In the following examples we show an image of a cross on a colored background and the colors that will appear in
+    the afterimage.</div>
+
+  <div class="container mt-2">
+    <div class="row">
+      <div class="col col-md-6">
+        <svg style="display: block;" width="300px" height="300px">
+          <rect x=0 y=0 width=300 height=300 fill="#ff0000"></rect>
+          <rect x=130 y=20 width=40 height=260 fill="#00ff00"></rect>
+          <rect x=20 y=130 width=260 height=40 fill="#00ff00"></rect>
+        </svg>
+        <div>Afterimage cross <svg width="20px" height="20px" style="background-color: #ff00ff"></svg> background <svg width="20px" height="20px"
+            style="background-color: #00ffff"></svg></div>
+      </div>
+
+      <div class="col col-md-6">
+        <svg style="display: block;" width="300px" height="300px">
+          <rect x=0 y=0 width=300 height=300 fill="#00ffff"></rect>
+          <rect x=130 y=20 width=40 height=260 fill="#ff00ff"></rect>
+          <rect x=20 y=130 width=260 height=40 fill="#ff00ff"></rect>
+        </svg>
+        <div>Afterimage cross <svg width="20px" height="20px" style="background-color: #00ff00"></svg> background <svg width="20px" height="20px"
+            style="background-color: #ff0000"></svg></div>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-md-6 mb-3">
+        <svg style="display: block;" width="300px" height="300px">
+          <rect x=0 y=0 width=300 height=300 fill="#0000ff"></rect>
+          <rect x=130 y=20 width=40 height=260 fill="#ffff00"></rect>
+          <rect x=20 y=130 width=260 height=40 fill="#ffff00"></rect>
+        </svg>
+        <div>Afterimage cross <svg width="20px" height="20px" style="background-color: #0000ff"></svg> background <svg width="20px" height="20px" style="background-color: #ffff00"></svg>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <svg style="display: block;" width="300px" height="300px">
+          <rect x=0 y=0 width=300 height=300 fill="#ffff00"></rect>
+          <rect x=130 y=20 width=40 height=260 fill="#0000ff"></rect>
+          <rect x=20 y=130 width=260 height=40 fill="#0000ff"></rect>
+        </svg>
+        <div>Afterimage cross <svg width="20px" height="20px" style="background-color: #ffff00"></svg> background <svg width="20px" height="20px" style="background-color: #0000ff"></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

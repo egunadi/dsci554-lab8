@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Negative afterimage</title>
+	<style>
+		html,
+		body,
+		svg {
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			text-align: center;
+			text-anchor:middle
+		}
+	</style>
+	<script src="./node_modules/d3/dist/d3.min.js"></script>
+</head>
+
+<body>
+	<svg style="background-color: white;" id="svg" width="100%" height="100%"></svg>
+
+	<script>
+		const BACKGROUND_COLOR = 'red';
+		const CROSS_COLOR = '#00ff00';
+		const WAIT_TIME = 15000;  //wait 15 seconds
+
+		const svg = d3.select('#svg'),
+			width = svg.node().clientWidth,
+			pad = 100;
+
+		var instructions = svg.append('text')
+			.attr('x', width / 2)
+			.attr('y', pad / 2)
+			.attr('id', 'instructions')
+			.text('Press space to start.');
+
+		d3.select('body').on("keydown", event => {
+			if (event.code === 'Space') {
+				
+				svg.style('background-color', BACKGROUND_COLOR);
+
+				//add cross
+				var height = svg.node().clientHeight,
+					shortSide = 150,
+					longSide = height - 2 * pad;
+
+				var rect1 = svg.append('rect')
+					.attr('x', (width - shortSide) / 2)
+					.attr('y', (height - longSide) / 2)
+					.attr('width', shortSide)
+					.attr('height', longSide)
+					.attr('fill', CROSS_COLOR);
+
+				var rect2 = svg.append('rect')
+					.attr('x', (width - longSide) / 2)
+					.attr('y', (height - shortSide) / 2)
+					.attr('width', longSide)
+					.attr('height', shortSide)
+					.attr('fill', CROSS_COLOR);
+
+				//set the text of the instructions to 'Fixate at the center of the cross for 15s'
+				instructions.text('Fixate at the center of the cross for 15s');
+
+				//wait for waitTime then transition to a white screen. For this use a transition:
+				// - configure the transition with a delay of WAIT_TIME
+				// - transition the svg to white background-color
+				// - change the instructions text to 'Press space to start.'
+				// - remove the cross
+
+				// SOLUTION
+				svg.transition()
+					.delay(WAIT_TIME)
+					.style('background-color', 'white');
+
+				rect1.transition()
+					.delay(WAIT_TIME)
+					.remove();
+
+				rect2.transition()
+					.delay(WAIT_TIME)
+					.remove();
+
+				instructions.transition()
+					.delay(WAIT_TIME)
+					.text('Press space to start.');
+			}
+		});
+	</script>
+</body>
+
+</html>
